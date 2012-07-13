@@ -1,0 +1,20 @@
+<resources>
+
+    <string name="app_name">WordNote</string>
+    <string name="title_activity_main_menu">WordNote</string>
+    <string name="run_session">Начать пролистывать слова</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="edit_word_list">Редактировать список слов</string>
+    <string name="configuration">Настройки</string>
+    <string name="about_application">О программе</string>
+    <string name="exit_from_application">Выход</string>
+    <string name="title_activity_session">ПРОЛИСТЫВАНИЕ</string>
+    <string name="show_translation">Показать перевод</string>
+    <string name="hide_translation">Скрыть перевод</string>
+    <string name="next_word">Следующее слово</string>
+    <string name="stub">"? ? ?"</string>
+    <string name="path_to_dictionary">/mnt/sdcard/words.txt</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+</resources>

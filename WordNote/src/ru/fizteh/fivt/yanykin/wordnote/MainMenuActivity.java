@@ -1,0 +1,58 @@
+package ru.fizteh.fivt.yanykin.wordnote;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.View;
+
+public class MainMenuActivity extends Activity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_menu);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
+        return true;
+    }
+    
+    //открывает окно с пролистыванием слов
+    public void startSession(View v) {
+    	//создаЄм интент (запрос), чтобы запустить новую де€тельность
+    	Intent intent = new Intent(this, SessionActivity.class);
+    	//запускаем де€тельность
+    	startActivity(intent);
+    }
+    
+    //завершает работу приложени€
+    public void closeApplication(View v) {
+    	//создаЄм диалоговое окно
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setTitle("¬ы уверены, что хотите выйти из программы?");
+    	builder.setPositiveButton("ƒа", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				MainMenuActivity.this.finish();
+			}
+    		
+    	});
+    	
+    	builder.setNegativeButton("Ќет", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+    	AlertDialog alert = builder.create();
+    	alert.show();
+    }
+   
+}
