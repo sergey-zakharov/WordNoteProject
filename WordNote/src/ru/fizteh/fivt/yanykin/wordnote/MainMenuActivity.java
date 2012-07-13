@@ -22,20 +22,20 @@ public class MainMenuActivity extends Activity {
         return true;
     }
     
-    //открывает окно с пролистыванием слов
+    //РѕС‚РєСЂС‹РІР°РµС‚ РѕРєРЅРѕ СЃ РїСЂРѕР»РёСЃС‚С‹РІР°РЅРёРµРј СЃР»РѕРІ
     public void startSession(View v) {
-    	//создаём интент (запрос), чтобы запустить новую деятельность
+    	//СЃРѕР·РґР°С‘Рј РёРЅС‚РµРЅС‚ (Р·Р°РїСЂРѕСЃ), С‡С‚РѕР±С‹ Р·Р°РїСѓСЃС‚РёС‚СЊ РЅРѕРІСѓСЋ РґРµСЏС‚РµР»СЊРЅРѕСЃС‚СЊ
     	Intent intent = new Intent(this, SessionActivity.class);
-    	//запускаем деятельность
+    	//Р·Р°РїСѓСЃРєР°РµРј РґРµСЏС‚РµР»СЊРЅРѕСЃС‚СЊ
     	startActivity(intent);
     }
     
-    //завершает работу приложения
+    //Р·Р°РІРµСЂС€Р°РµС‚ СЂР°Р±РѕС‚Сѓ РїСЂРёР»РѕР¶РµРЅРёСЏ
     public void closeApplication(View v) {
-    	//создаём диалоговое окно
+    	//СЃРѕР·РґР°С‘Рј РґРёР°Р»РѕРіРѕРІРѕРµ РѕРєРЅРѕ
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setTitle("Вы уверены, что хотите выйти из программы?");
-    	builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+    	builder.setTitle("Р’С‹ СѓРІРµСЂРµРЅС‹, С‡С‚Рѕ С…РѕС‚РёС‚Рµ РІС‹Р№С‚Рё РёР· РїСЂРѕРіСЂР°РјРјС‹?");
+    	builder.setPositiveButton("Р”Р°", new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -44,7 +44,7 @@ public class MainMenuActivity extends Activity {
     		
     	});
     	
-    	builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+    	builder.setNegativeButton("РќРµС‚", new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

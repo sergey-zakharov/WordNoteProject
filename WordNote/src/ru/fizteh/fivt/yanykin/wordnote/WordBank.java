@@ -9,16 +9,16 @@ import java.util.Random;
 
 import android.util.Pair;
 
-//фиктивный класс, содержащий различные слова
+//С„РёРєС‚РёРІРЅС‹Р№ РєР»Р°СЃСЃ, СЃРѕРґРµСЂР¶Р°С‰РёР№ СЂР°Р·Р»РёС‡РЅС‹Рµ СЃР»РѕРІР°
 public class WordBank {
-	//список пар "слово" - "перевод"
+	//СЃРїРёСЃРѕРє РїР°СЂ "СЃР»РѕРІРѕ" - "РїРµСЂРµРІРѕРґ"
 	private List<Pair<String, String>> wordList;
-	//номер последнего извлечённого слова
+	//РЅРѕРјРµСЂ РїРѕСЃР»РµРґРЅРµРіРѕ РёР·РІР»РµС‡С‘РЅРЅРѕРіРѕ СЃР»РѕРІР°
 	private int lastSelectedIndex;
 	public WordBank(String pathToFile) throws IOException {
 		wordList = new ArrayList<Pair<String,String>>();
 		lastSelectedIndex = -1;
-		//загружаем слова из внешнего источника
+		//Р·Р°РіСЂСѓР¶Р°РµРј СЃР»РѕРІР° РёР· РІРЅРµС€РЅРµРіРѕ РёСЃС‚РѕС‡РЅРёРєР°
 		BufferedReader reader = new BufferedReader(new FileReader(pathToFile));
 		String str = null;
 		while ((str = reader.readLine()) != null) {

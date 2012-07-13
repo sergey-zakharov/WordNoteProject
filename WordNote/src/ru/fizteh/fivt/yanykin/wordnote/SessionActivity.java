@@ -19,14 +19,14 @@ import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
 public class SessionActivity extends Activity {
-	//надписи, содержащие слово и перевод
+	//РЅР°РґРїРёСЃРё, СЃРѕРґРµСЂР¶Р°С‰РёРµ СЃР»РѕРІРѕ Рё РїРµСЂРµРІРѕРґ
 	TextView currentWord = null;
     TextView translationWord = null;
-	//подгруженный словарь
+	//РїРѕРґРіСЂСѓР¶РµРЅРЅС‹Р№ СЃР»РѕРІР°СЂСЊ
 	WordBank dictionary;
-	//текущая пара слово-перевод
+	//С‚РµРєСѓС‰Р°СЏ РїР°СЂР° СЃР»РѕРІРѕ-РїРµСЂРµРІРѕРґ
 	Pair<String, String> currentPair;
-	//показан ли сейчас перевод слова?
+	//РїРѕРєР°Р·Р°РЅ Р»Рё СЃРµР№С‡Р°СЃ РїРµСЂРµРІРѕРґ СЃР»РѕРІР°?
 	boolean isTranslationShowed = false;
 
     @Override
@@ -35,7 +35,7 @@ public class SessionActivity extends Activity {
         setContentView(R.layout.activity_session);
         currentWord = (TextView) findViewById(R.id.originalWordView);
         translationWord = (TextView) findViewById(R.id.translationWordView);
-        //привязываем к кнопке обработчик
+        //РїСЂРёРІСЏР·С‹РІР°РµРј Рє РєРЅРѕРїРєРµ РѕР±СЂР°Р±РѕС‚С‡РёРє
         final Button showAndHideButton = (Button)findViewById(R.id.showHideButton);
         showAndHideButton.setOnClickListener(new Button.OnClickListener() {
 
@@ -59,13 +59,13 @@ public class SessionActivity extends Activity {
     @Override
     protected void onStart() {
     	super.onStart();
-    	//создаём контекст
+    	//СЃРѕР·РґР°С‘Рј РєРѕРЅС‚РµРєСЃС‚
         try {
 			dictionary = new WordBank(getString(R.string.path_to_dictionary));
 		} catch (IOException e) {
-			//Инициализируем "фабрику" диалоговых окон
+			//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј "С„Р°Р±СЂРёРєСѓ" РґРёР°Р»РѕРіРѕРІС‹С… РѕРєРѕРЅ
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Ошибка при загрузке словаря!");
+			builder.setTitle("РћС€РёР±РєР° РїСЂРё Р·Р°РіСЂСѓР·РєРµ СЃР»РѕРІР°СЂСЏ!");
 			builder.setCancelable(false);
 			builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
 
@@ -78,7 +78,7 @@ public class SessionActivity extends Activity {
 			AlertDialog alert = builder.create();
 			alert.show();
 		}
-        //если всё хорошо, то выбираем случайным образом пару
+        //РµСЃР»Рё РІСЃС‘ С…РѕСЂРѕС€Рѕ, С‚Рѕ РІС‹Р±РёСЂР°РµРј СЃР»СѓС‡Р°Р№РЅС‹Рј РѕР±СЂР°Р·РѕРј РїР°СЂСѓ
         //currentPair = dictionary.getRandomPair();
         nextWord(null);
         
@@ -90,19 +90,19 @@ public class SessionActivity extends Activity {
         return true;
     }
 
-    //следующее слово
+    //СЃР»РµРґСѓСЋС‰РµРµ СЃР»РѕРІРѕ
     public void nextWord(View v) {
     	currentPair = dictionary.getRandomPair();
     	currentWord.setText(currentPair.first);
     	translationWord.setText(getString(R.string.stub));
     }
     
-    //показать перевод
+    //РїРѕРєР°Р·Р°С‚СЊ РїРµСЂРµРІРѕРґ
     public void showTranslation() {
     	translationWord.setText(currentPair.second);
     }
     
-    //спрятать перевод
+    //СЃРїСЂСЏС‚Р°С‚СЊ РїРµСЂРµРІРѕРґ
     public void hideTranslation() {
     	translationWord.setText(getString(R.string.stub));
     }
