@@ -16,17 +16,17 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.activity_main_menu);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
-        return true;
-    }
-    
     //открывает окно с пролистыванием слов
     public void startSession(View v) {
     	//создаём интент (запрос), чтобы запустить новую деятельность
     	Intent intent = new Intent(this, SessionActivity.class);
     	//запускаем деятельность
+    	startActivity(intent);
+    }
+    
+    /* Открывает окно настроек */
+    public void openPreferencesList(View v) {
+    	Intent intent = new Intent(this, Preferences.class);
     	startActivity(intent);
     }
     

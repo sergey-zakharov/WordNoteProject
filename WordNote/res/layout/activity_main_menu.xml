@@ -27,7 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editWordListButton"
-        android:text="@string/configuration" />
+        android:text="@string/configuration"
+        android:onClick="openPreferencesList" />
 
     <Button
         android:id="@+id/aboutButton"
