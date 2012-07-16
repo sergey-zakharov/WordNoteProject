@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<PreferenceCategory
+	    android:title="@string/word_categories">
+	    
+	    <CheckBoxPreference 
+	        android:title="Какая-то функция"
+	        android:summary="Да, действительно, какая-то непонятная функция"/>
+	    <CheckBoxPreference 
+	        android:title="Ещё одна непонятная функция"
+	        android:summary="Но она очень важная, поверьте!"/>
+	    <MultiSelectListPreference 
+	        android:title="А это выбранные элементы чего-то там"
+	        android:summary="Не забудьте выбрать нужные вам элементы!"
+	        android:entries="@array/entries_wordlist_preferences"
+	        android:entryValues="@array/entryValues_wordlist_preferences"
+            android:dialogTitle="ЭЛЕМЕНТЫ!!!111"/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory 
+	    android:title="А это ещё один раздел">
+	    <SwitchPreference
+	        android:title="Мега-выключатель номер 0"
+	        android:summary="Не трогайте его!"
+	        android:switchTextOff="ВЫКЛ"
+	        android:switchTextOn="ВКЛ">
+	    </SwitchPreference>
+	</PreferenceCategory>
+</PreferenceScreen>

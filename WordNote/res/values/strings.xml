@@ -16,5 +16,10 @@
     <string name="path_to_dictionary">/mnt/sdcard/words.txt</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_preferences">Preferences</string>
+    
+    <string name="word_categories">Категории слов</string>
+    <string name="word_selected_categories">Выбранные категории</string>
+    
 
 </resources>
