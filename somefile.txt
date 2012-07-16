@@ -6,4 +6,5 @@ int main() {
 	//prints number of the version
 	std::cout << "Very Useful Program v.0.01" << std::endl;
 	return 0;
+	//some comment
 }
