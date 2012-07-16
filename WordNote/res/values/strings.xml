@@ -21,5 +21,32 @@
     <string name="word_categories">Категории слов</string>
     <string name="word_selected_categories">Выбранные категории</string>
     
-
+  <string-array name="wordlist">
+        <item>apple яблоко</item>
+        <item>banaba банан</item>
+        <item>coin монета</item>
+        <item>dream мечта</item>
+        <item>egg яйцо</item>
+        <item>flame пламя</item>
+        <item>game игра</item>
+        <item>height высота</item>
+        <item>inch дюйм</item>
+        <item>jar банка</item>
+        <item>kettle чайник</item>
+        <item>lemon димон</item>
+        <item>mail почта</item>
+        <item>note заметка</item>
+        <item>oil масло</item>
+        <item>peach персик</item>
+        <item>queen королева</item>
+        <item>rope веревка</item>
+        <item>steam пар</item>
+        <item>temple храм</item>
+        <item>union объединение</item>
+        <item>violence насилие</item>
+        <item>window окно</item>
+        <item>Xmas Рождество</item>
+        <item>yellow желтый</item>
+        <item>zero ноль</item>
+    </string-array>
 </resources>

@@ -7,14 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.util.Pair;
 
-//фиктивный класс, содержащий различные слова
+/* Фиктивный класс, содержащий различные слова */
 public class WordBank {
-	//список пар "слово" - "перевод"
+	/* список пар "слово" - "перевод" */
 	private List<Pair<String, String>> wordList;
-	//номер последнего извлечённого слова
+	/* номер последнего извлечённого слова */
 	private int lastSelectedIndex;
+	
 	public WordBank(String pathToFile) throws IOException {
 		wordList = new ArrayList<Pair<String,String>>();
 		lastSelectedIndex = -1;
@@ -28,6 +31,23 @@ public class WordBank {
 			}
 		}
 	}
+	
+	/* Конструктор будет выгружать слова из XML-файла ресурсов */
+	public WordBank(Context context) {
+		wordList = new ArrayList<Pair<String,String>>();
+		lastSelectedIndex = -1;
+		
+		Resources res = context.getResources();
+		/* Используем файл words.xml */
+		String scannedWordPairs[] = res.getStringArray(R.array.wordlist);
+		for (String wordPair : scannedWordPairs) {
+			String scannedWords[] = wordPair.split(" ");
+			if (scannedWords.length >= 2) {
+				wordList.add(new Pair<String, String>(scannedWords[0], scannedWords[1]));
+			}
+		}
+	}
+	
 	public Pair<String, String> getRandomPair() {
 		int nextItemIndex = -1;
 		if (wordList.size() == 0) {
