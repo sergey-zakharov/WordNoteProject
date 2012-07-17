@@ -17,36 +17,64 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_preferences">Preferences</string>
-    
     <string name="word_categories">Категории слов</string>
     <string name="word_selected_categories">Выбранные категории</string>
-    
-  <string-array name="wordlist">
+
+    <string-array name="wordlist">
         <item>apple яблоко</item>
+        <item>attempt попытка</item>
         <item>banaba банан</item>
+        <item>brother брат</item>
         <item>coin монета</item>
+        <item>color цвет</item>
         <item>dream мечта</item>
+        <item>deer олень</item>
         <item>egg яйцо</item>
+        <item>equipment оборудование</item>
         <item>flame пламя</item>
+        <item>flower цветок</item>
         <item>game игра</item>
+        <item>ghost приведение</item>
         <item>height высота</item>
+        <item>ham ветчина</item>
         <item>inch дюйм</item>
+        <item>inspiration вдохновение</item>
         <item>jar банка</item>
+        <item>jazz джаз</item>
         <item>kettle чайник</item>
-        <item>lemon димон</item>
+        <item>key ключ</item>
+        <item>lemon лимон</item>
+        <item>list список</item>
         <item>mail почта</item>
+        <item>murder убийство</item>
+        <item>neighbor сосед</item>
         <item>note заметка</item>
         <item>oil масло</item>
+        <item>owl сова</item>
         <item>peach персик</item>
+        <item>pear груша</item>
         <item>queen королева</item>
+        <item>quarter четверть</item>
         <item>rope веревка</item>
+        <item>race гонка</item>
         <item>steam пар</item>
+        <item>squirrel белка</item>
         <item>temple храм</item>
+        <item>tea чай</item>
         <item>union объединение</item>
+        <item>utility польза</item>
         <item>violence насилие</item>
+        <item>victory победа</item>
         <item>window окно</item>
+        <item>widow вдова</item>
         <item>Xmas Рождество</item>
+        <item>exception исключение</item>
         <item>yellow желтый</item>
+        <item>yard двор</item>
         <item>zero ноль</item>
+        <item>zeal рвение</item>
     </string-array>
+
+    <string name="title_activity_variants_mode_session">VariantsModeSession</string>
+
 </resources>

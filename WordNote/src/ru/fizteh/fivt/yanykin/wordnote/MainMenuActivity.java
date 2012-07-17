@@ -23,6 +23,12 @@ public class MainMenuActivity extends Activity {
     	startActivity(intent);
     }
     
+    /* Запускает режим с вариантами ответа */
+    public void startVariantsModeSession(View v) {
+    	Intent intent = new Intent(this, VariantsModeSession.class);
+    	startActivity(intent);
+    }
+    
     /* Открывает окно настроек */
     public void openPreferencesList(View v) {
     	Intent intent = new Intent(this, Preferences.class);

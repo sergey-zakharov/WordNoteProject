@@ -29,23 +29,27 @@ public final class R {
         public static final int configurationsButton=0x7f0a0002;
         public static final int editWordListButton=0x7f0a0001;
         public static final int exitButton=0x7f0a0004;
-        public static final int menu_settings=0x7f0a0009;
+        public static final int menu_settings=0x7f0a000b;
         public static final int nextWordButton=0x7f0a0006;
+        public static final int originalWordTextView=0x7f0a0009;
         public static final int originalWordView=0x7f0a0005;
         public static final int runSessionButton=0x7f0a0000;
         public static final int showHideButton=0x7f0a0007;
         public static final int translationWordView=0x7f0a0008;
+        public static final int variantsLayout=0x7f0a000a;
     }
     public static final class layout {
         public static final int activity_main_menu=0x7f030000;
         public static final int activity_preferences=0x7f030001;
         public static final int activity_session=0x7f030002;
+        public static final int activity_variants_mode_session=0x7f030003;
     }
     public static final class menu {
         public static final int activity_main_menu=0x7f090000;
         public static final int activity_preferences=0x7f090001;
         public static final int activity_session=0x7f090002;
         public static final int activity_settings=0x7f090003;
+        public static final int activity_variants_mode_session=0x7f090004;
     }
     public static final class string {
         public static final int about_application=0x7f070006;
@@ -65,6 +69,7 @@ public final class R {
         public static final int title_activity_preferences=0x7f070010;
         public static final int title_activity_session=0x7f070008;
         public static final int title_activity_settings=0x7f07000f;
+        public static final int title_activity_variants_mode_session=0x7f070013;
         public static final int word_categories=0x7f070011;
         public static final int word_selected_categories=0x7f070012;
     }

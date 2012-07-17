@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="73dp"
         android:text="@string/run_session" 
-        android:onClick="startSession"/>
+        android:onClick="startVariantsModeSession"/>
 
     <Button
         android:id="@+id/editWordListButton"
