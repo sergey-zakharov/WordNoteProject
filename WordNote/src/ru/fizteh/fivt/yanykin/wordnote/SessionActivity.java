@@ -1,7 +1,5 @@
 package ru.fizteh.fivt.yanykin.wordnote;
 
-import java.io.IOException;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,6 +14,7 @@ public class SessionActivity extends Activity {
 	//надписи, содержащие слово и перевод
 	TextView currentWord = null;
     TextView translationWord = null;
+    Button showAndHideButton = null;
 	//подгруженный словарь
 	WordBank dictionary;
 	//текущая пара слово-перевод
@@ -30,19 +29,15 @@ public class SessionActivity extends Activity {
         currentWord = (TextView) findViewById(R.id.originalWordView);
         translationWord = (TextView) findViewById(R.id.translationWordView);
         //привязываем к кнопке обработчик
-        final Button showAndHideButton = (Button)findViewById(R.id.showHideButton);
+        showAndHideButton = (Button)findViewById(R.id.showHideButton);
         showAndHideButton.setOnClickListener(new Button.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				if (isTranslationShowed) {
-					showAndHideButton.setText(R.string.show_translation);
-					hideTranslation();
-					isTranslationShowed = false;
+				if (isTranslationShowed) {		
+					hideTranslation();				
 				} else {
-					showAndHideButton.setText(R.string.hide_translation);
 					showTranslation();
-					isTranslationShowed = true;
 				}
 			}
         	
@@ -55,8 +50,9 @@ public class SessionActivity extends Activity {
     	super.onStart();
     	//создаём контекст
         try {
-			dictionary = new WordBank(getString(R.string.path_to_dictionary));
-		} catch (IOException e) {
+			//dictionary = new WordBank(getString(R.string.path_to_dictionary));
+        	dictionary = new WordBank(getApplicationContext());
+		} catch (Exception e) {
 			//Инициализируем "фабрику" диалоговых окон
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("Ошибка при загрузке словаря!");
@@ -88,16 +84,23 @@ public class SessionActivity extends Activity {
     public void nextWord(View v) {
     	currentPair = dictionary.getRandomPair();
     	currentWord.setText(currentPair.first);
-    	translationWord.setText(getString(R.string.stub));
+    	/* По умолчанию перевод мы прячем */
+    	hideTranslation();
     }
     
-    //показать перевод
+    /* Показать перевод */
     public void showTranslation() {
     	translationWord.setText(currentPair.second);
+    	/* На кнопке ставим надпись "скрыть перевод" */
+    	showAndHideButton.setText(R.string.hide_translation);
+    	isTranslationShowed = true;
     }
     
-    //спрятать перевод
+    /* Спрятать перевод */
     public void hideTranslation() {
     	translationWord.setText(getString(R.string.stub));
+    	/* На кнопке ставим надпись "показать перевод" */
+    	showAndHideButton.setText(R.string.show_translation);
+    	isTranslationShowed = false;
     }
 }

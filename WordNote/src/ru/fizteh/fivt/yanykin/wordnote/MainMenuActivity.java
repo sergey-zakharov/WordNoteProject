@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 
 public class MainMenuActivity extends Activity {
@@ -21,6 +20,12 @@ public class MainMenuActivity extends Activity {
     	//создаём интент (запрос), чтобы запустить новую деятельность
     	Intent intent = new Intent(this, SessionActivity.class);
     	//запускаем деятельность
+    	startActivity(intent);
+    }
+    
+    /* Запускает режим с вариантами ответа */
+    public void startVariantsModeSession(View v) {
+    	Intent intent = new Intent(this, VariantsModeSession.class);
     	startActivity(intent);
     }
     

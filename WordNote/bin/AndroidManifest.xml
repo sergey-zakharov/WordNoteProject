@@ -29,6 +29,10 @@
             android:name=".Preferences"
             android:label="@string/title_activity_preferences" >
         </activity>
+        <activity
+            android:name=".VariantsModeSession"
+            android:label="@string/title_activity_variants_mode_session" >
+        </activity>
     </application>
 
 </manifest>

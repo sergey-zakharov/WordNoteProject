@@ -5,10 +5,6 @@ import java.util.List;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
 
 /* Класс, реализующий окно с настройками */
 public class Preferences extends PreferenceActivity {
