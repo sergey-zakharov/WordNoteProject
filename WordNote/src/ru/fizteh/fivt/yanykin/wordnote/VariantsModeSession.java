@@ -31,6 +31,7 @@ public class VariantsModeSession extends Activity {
 	int rightVariant;
 	/* Используемая база слов */
 	WordBank bank;
+	
 	/* Метка, обозначающая верное слово */
 	private static final String isCorrectTag = "correct";
 	
@@ -43,7 +44,7 @@ public class VariantsModeSession extends Activity {
         nextWord = (Button)findViewById(R.id.nextWordButton);
         variantsLayout = (LinearLayout)findViewById(R.id.variantsLayout);
         /* Создаём базу слов */
-        bank = new WordBank(this);
+        bank = new WordBank(/*Context*/this);// 
         /* Создаём кнопки */
         generateButtons();
         /* Заполняем сразу словами */

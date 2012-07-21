@@ -1,19 +1,25 @@
 package ru.fizteh.fivt.yanykin.wordnote;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 import android.util.Pair;
+import android.widget.Toast;
 
 /* Фиктивный класс, содержащий различные слова */
 public class WordBank {
@@ -21,35 +27,16 @@ public class WordBank {
 	private List<Pair<String, String>> wordList;
 	/* номер последнего извлечённого слова */
 	private int lastSelectedIndex;
-	
-	public WordBank(String pathToFile) throws IOException {
-		wordList = new ArrayList<Pair<String,String>>();
-		lastSelectedIndex = -1;
-		//загружаем слова из внешнего источника
-		BufferedReader reader = new BufferedReader(new FileReader(pathToFile));
-		String str = null;
-		while ((str = reader.readLine()) != null) {
-			String scannedWords[] = str.split(" ");
-			if (scannedWords.length >= 2) {
-				wordList.add(new Pair<String, String>(scannedWords[0], scannedWords[1]));
-			}
-		}
-	}
-	
-	/* Конструктор будет выгружать слова из XML-файла ресурсов */
+	WBDBHelper dbHelper;
+		
+	/* Конструктор будет выгружать слова из базы данных */
 	public WordBank(Context context) {
 		wordList = new ArrayList<Pair<String,String>>();
 		lastSelectedIndex = -1;
 		
-		Resources res = context.getResources();
-		/* Используем файл words.xml */
-		String scannedWordPairs[] = res.getStringArray(R.array.wordlist);
-		for (String wordPair : scannedWordPairs) {
-			String scannedWords[] = wordPair.split(" ");
-			if (scannedWords.length >= 2) {
-				wordList.add(new Pair<String, String>(scannedWords[0], scannedWords[1]));
-			}
-		}
+		//открываем соединение с базой данных, если она не создана, создаем и загружаем в нее слова из внешнего источника
+		dbHelper = new WBDBHelper(context, wordList);
+		
 	}
 	
 	/* Возвращает случайный индекс слова такой, чтобы оно не повторялось с ранее
@@ -113,4 +100,100 @@ public class WordBank {
 		/* Возвращаем результат */
 		return pairsList;
 	}
+}
+
+
+class WBDBHelper extends SQLiteOpenHelper{
+
+	private Context _context;
+	private List<Pair<String, String>> _wordList;
+	private String _pathToFile;
+	final String LOG_TAG = "myLogs";
+	
+	
+	public WBDBHelper(Context context, List<Pair<String, String>> wordList) {
+		super(context, "WBDatabase", null/*Cursor factory*/, 1/*version*/);
+		_wordList = wordList;
+		_context = context;
+		Log.d(LOG_TAG, "WBDBHelper constructor worked");
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		//создается база данных sql запросом
+			//столбцы: id, слово на английском, его перевод на русском, категория
+		try{
+			Log.d(LOG_TAG, "creating database");
+			db.execSQL("create table wordnotetable ("
+				+ "_id integer primary key autoincrement," + "eng_word text,"
+				+ "rus_transl text," + "category text" + ");");
+		} catch(SQLException e){
+			Toast.makeText(_context, "Database error: not created", Toast.LENGTH_LONG).show();
+			return;
+		}
+		Log.d(LOG_TAG, "database created");
+		Resources res = _context.getResources();
+		Log.d(LOG_TAG, "got resources");
+		
+		/* Используем файл words.xml */
+		String scannedWordPairs[] = res.getStringArray(R.array.wordlist);// массив строк из файла
+		ContentValues cv = new ContentValues();
+		String engWord;
+		String translation;
+		
+		// Перегоняем слова из файла XML в базу данных
+		for (String wordPair : scannedWordPairs) {
+			String scannedWords[] = wordPair.split(" ");// разъединили слова
+			if (scannedWords.length >= 2) {
+				//_wordList.add(new Pair<String, String>(scannedWords[0], scannedWords[1]));
+				// здесь заливаем и готовим к записи в бд
+				engWord = scannedWords[0];
+				translation = scannedWords[1];
+
+				cv.put("eng_word", engWord);
+				cv.put("rus_transl", translation);
+				cv.put("category", "no_category");
+				long rowID = db.insert("wordnotetable", null, cv);
+				
+				Log.d(LOG_TAG, "word = " + engWord + ", transl = " + translation);
+			}
+			else{
+				Log.e(LOG_TAG, "Error occured: scannedWords.length < 2!");// TODO ошибка
+			}
+		}
+		
+		
+		//TODO теперь надо выбрать те записи, для которых установлены категории по умолчанию 
+		final String[] columnsToReturn = new String[2];
+		columnsToReturn[0] = "eng_word";
+		columnsToReturn[1] = "rus_transl";
+		
+		String specCategoryQuery = "category=\'no_category\'";//TODO здесь надо захардкодить категорию по умолчанию 
+		
+		Cursor c = db.query("wordnotetable", columnsToReturn, specCategoryQuery, null, null, null, null);
+		
+		if (c.moveToFirst()) {
+
+			// определяем номера столбцов по имени в выборке
+			//int idColIndex = c.getColumnIndex("_id");
+			int engColIndex = c.getColumnIndex("eng_word");
+			int rusColIndex = c.getColumnIndex("rus_transl");
+
+			do {
+				_wordList.add(new Pair<String, String>(c.getString(engColIndex), c.getString(rusColIndex) ));
+			} while (c.moveToNext());
+		} else {
+			Toast.makeText(_context, "no words in default category!", Toast.LENGTH_LONG).show();
+		}
+
+		
+		
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
