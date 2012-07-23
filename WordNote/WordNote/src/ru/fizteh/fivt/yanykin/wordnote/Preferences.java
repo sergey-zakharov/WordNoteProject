@@ -28,7 +28,7 @@ public class Preferences extends PreferenceActivity {
     	public void onCreate(Bundle savedInstanceState) {		
     		super.onCreate(savedInstanceState);
     		/* Установка настроек по умолчанию*/
-    		//TO DO: написать XML-ресурс с настройками по умолчанию
+    		//TODO: написать XML-ресурс с настройками по умолчанию
     		/* Загружает содержимое раздела */
     		addPreferencesFromResource(R.xml.wordlist_preferences);
     	}

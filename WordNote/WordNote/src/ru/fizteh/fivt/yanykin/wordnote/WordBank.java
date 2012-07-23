@@ -30,12 +30,17 @@ public class WordBank {
 	WBDBHelper dbHelper;
 		
 	/* Конструктор будет выгружать слова из базы данных */
-	public WordBank(Context context) {
+	public WordBank(Context context, String[] categories) {
 		wordList = new ArrayList<Pair<String,String>>();
 		lastSelectedIndex = -1;
 		
 		//открываем соединение с базой данных, если она не создана, создаем и загружаем в нее слова из внешнего источника
 		dbHelper = new WBDBHelper(context, wordList);
+		
+		SQLiteDatabase db = dbHelper.getReadableDatabase();//иногда возникают накладки
+		
+		dbHelper.readWordsFromDB(db , categories);
+		db.close();//не тратим дорогие ресурсы
 		
 	}
 	
@@ -109,6 +114,7 @@ class WBDBHelper extends SQLiteOpenHelper{
 	private List<Pair<String, String>> _wordList;
 	private String _pathToFile;
 	final String LOG_TAG = "myLogs";
+	final static String TABLE_NAME = "wordnotetable";
 	
 	
 	public WBDBHelper(Context context, List<Pair<String, String>> wordList) {
@@ -124,7 +130,7 @@ class WBDBHelper extends SQLiteOpenHelper{
 			//столбцы: id, слово на английском, его перевод на русском, категория
 		try{
 			Log.d(LOG_TAG, "creating database");
-			db.execSQL("create table wordnotetable ("
+			db.execSQL("create table " + TABLE_NAME + " ("
 				+ "_id integer primary key autoincrement," + "eng_word text,"
 				+ "rus_transl text," + "category text" + ");");
 		} catch(SQLException e){
@@ -153,7 +159,7 @@ class WBDBHelper extends SQLiteOpenHelper{
 				cv.put("eng_word", engWord);
 				cv.put("rus_transl", translation);
 				cv.put("category", "no_category");
-				long rowID = db.insert("wordnotetable", null, cv);
+				long rowID = db.insert(TABLE_NAME, null, cv);
 				
 				Log.d(LOG_TAG, "word = " + engWord + ", transl = " + translation);
 			}
@@ -162,15 +168,26 @@ class WBDBHelper extends SQLiteOpenHelper{
 			}
 		}
 		
+	}
+
+	public void readWordsFromDB(SQLiteDatabase db, String[] categories /*TODO здесь еще и условия на категории*/){
+		// Теперь надо выбрать те записи, для которых установлены категории по умолчанию 
 		
-		//TODO теперь надо выбрать те записи, для которых установлены категории по умолчанию 
 		final String[] columnsToReturn = new String[2];
 		columnsToReturn[0] = "eng_word";
 		columnsToReturn[1] = "rus_transl";
 		
+		//составляется условный запрос
 		String specCategoryQuery = "category=\'no_category\'";//TODO здесь надо захардкодить категорию по умолчанию 
 		
-		Cursor c = db.query("wordnotetable", columnsToReturn, specCategoryQuery, null, null, null, null);
+		
+		for(int i = 0; i < categories.length; i++){
+			specCategoryQuery.concat(" or category=\'");
+			specCategoryQuery.concat(categories[i]);
+			specCategoryQuery.concat("\'");
+		}
+		
+		Cursor c = db.query(TABLE_NAME, columnsToReturn, specCategoryQuery, null, null, null, null);
 		
 		if (c.moveToFirst()) {
 
@@ -185,15 +202,17 @@ class WBDBHelper extends SQLiteOpenHelper{
 		} else {
 			Toast.makeText(_context, "no words in default category!", Toast.LENGTH_LONG).show();
 		}
-
-		
-		
 	}
-
+	
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-		
+		if (oldVersion < newVersion){
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+			onCreate(db);
+		}
+		else 
+			Toast.makeText(_context, "You have the lastest version of database", Toast.LENGTH_LONG).show();
 	}
 	
 }

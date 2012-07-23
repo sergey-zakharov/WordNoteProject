@@ -14,6 +14,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+/**
+ * Activity, presenting default mode of selection translation 
+ * of several options 
+ * 
+ * */
+
 
 public class VariantsModeSession extends Activity {
 
@@ -43,8 +49,12 @@ public class VariantsModeSession extends Activity {
         currentWord = (TextView)findViewById(R.id.originalWordTextView);
         nextWord = (Button)findViewById(R.id.nextWordButton);
         variantsLayout = (LinearLayout)findViewById(R.id.variantsLayout);
+        /* Читаем из настроек категории*/
+        //TODO
+        String[] selectedCategories = {};
         /* Создаём базу слов */
-        bank = new WordBank(/*Context*/this);// 
+        //TODO создаем, в зависимости от того, какие категории были выбраны в настройках
+        bank = new WordBank(/*Context*/this, selectedCategories);// 
         /* Создаём кнопки */
         generateButtons();
         /* Заполняем сразу словами */
@@ -91,7 +101,7 @@ public class VariantsModeSession extends Activity {
     	/* Первый элемент полученного списка определит верный ответ */
     	String originalWord = variants.get(0).first;
     	/* Случайным образом определим номер верного варианта ответа */
-    	rightVariant = (new Random()).nextInt(numberOfVariants);
+    	rightVariant = (new Random()).nextInt(numberOfVariants); 
     	/* Поменяем его с первым элементом variants */
     	Collections.swap(variants, 0, rightVariant);
     	/* Заполняем кнопки и надпись */

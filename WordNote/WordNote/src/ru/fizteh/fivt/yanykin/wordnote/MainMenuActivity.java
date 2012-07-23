@@ -1,19 +1,70 @@
 package ru.fizteh.fivt.yanykin.wordnote;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
-public class MainMenuActivity extends Activity {
-
+public class MainMenuActivity extends Activity implements OnClickListener{
+	
+	Button startVariantsModeButton, editWordListButton, mainConfButton, aboutButton, exitButton; 
+	final String LOG_TAG = "myLogs"; 
+	
+	public MainMenuActivity(){
+		super();
+		Log.d(LOG_TAG, "MainMenuActivity constructed");
+		
+	}
+	
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        
+        startVariantsModeButton = (Button) findViewById(R.id.runSessionButton);
+        editWordListButton = (Button) findViewById(R.id.editWordListButton);
+        mainConfButton = (Button) findViewById(R.id.configurationsButton);
+        aboutButton = (Button) findViewById(R.id.aboutButton);
+        exitButton = (Button) findViewById(R.id.exitButton);
+        
+        startVariantsModeButton.setOnClickListener(this);
+        editWordListButton.setOnClickListener(this);
+        mainConfButton.setOnClickListener(this);
+        aboutButton.setOnClickListener(this);
+        exitButton.setOnClickListener(this);
+        
     }
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		
+			case R.id.runSessionButton:
+				startVariantsModeSession(v);
+				break;
+			case R.id.editWordListButton:
+				//TODO startEditionMode(v);
+				break;
+			case R.id.configurationsButton:
+				openPreferencesList(v);
+				break;
+			case R.id.aboutButton:
+				//TODO showAboutActivity(v);
+				break;
+			case R.id.exitButton:
+				closeApplication(v);
+				break;
+		
+		}
+		
+	}
+
 
     //открывает окно с пролистыванием слов
     public void startSession(View v) {
@@ -59,5 +110,8 @@ public class MainMenuActivity extends Activity {
     	AlertDialog alert = builder.create();
     	alert.show();
     }
-   
+
+	
+	
+	
 }

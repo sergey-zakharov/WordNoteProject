@@ -50,8 +50,11 @@ public class SessionActivity extends Activity {
     	super.onStart();
     	//создаём контекст
         try {
-			//dictionary = new WordBank(getString(R.string.path_to_dictionary));
-        	dictionary = new WordBank(getApplicationContext());
+        	String[] categories = {};
+			//Читаем выбранные категории из файла настроек
+        	//TODO (тут имеет место дублирование кода)
+        	
+        	dictionary = new WordBank(getApplicationContext(), categories);
 		} catch (Exception e) {
 			//Инициализируем "фабрику" диалоговых окон
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);

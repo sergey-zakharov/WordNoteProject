@@ -39,10 +39,11 @@ public final class R {
         public static final int variantsLayout=0x7f0a000a;
     }
     public static final class layout {
-        public static final int activity_main_menu=0x7f030000;
-        public static final int activity_preferences=0x7f030001;
-        public static final int activity_session=0x7f030002;
-        public static final int activity_variants_mode_session=0x7f030003;
+        public static final int activity_edition_mode=0x7f030000;
+        public static final int activity_main_menu=0x7f030001;
+        public static final int activity_preferences=0x7f030002;
+        public static final int activity_session=0x7f030003;
+        public static final int activity_variants_mode_session=0x7f030004;
     }
     public static final class menu {
         public static final int activity_main_menu=0x7f090000;
