@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Random;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
@@ -50,10 +52,11 @@ public class VariantsModeSession extends Activity {
         nextWord = (Button)findViewById(R.id.nextWordButton);
         variantsLayout = (LinearLayout)findViewById(R.id.variantsLayout);
         /* Читаем из настроек категории*/
-        //TODO
-        String[] selectedCategories = {};
+        String[] selectedCategories = readCategories();
+        
         /* Создаём базу слов */
-        //TODO создаем, в зависимости от того, какие категории были выбраны в настройках
+        
+        //создаем, в зависимости от того, какие категории были выбраны в настройках 
         bank = new WordBank(/*Context*/this, selectedCategories);// 
         /* Создаём кнопки */
         generateButtons();
@@ -61,7 +64,26 @@ public class VariantsModeSession extends Activity {
         nextWord(null);
     }   
     
-    /* Создание нужного количества кнопок */
+    private String[] readCategories() {
+    	SharedPreferences sp;
+    	String[] categories = {};
+    	int counter = 0;
+    	int checkBoxQuant = 5; // TODO здесь надо выяснять, сколько чекбоксов
+    	
+    	sp = PreferenceManager.getDefaultSharedPreferences(this);
+    	Boolean checked;
+    	
+    	for (int i = 0; i < checkBoxQuant; i++) {
+			checked = sp.getBoolean("category_" + (i+1), false);
+			if (checked) {
+				/* TODO здесь добавляем в список категории, которые были выбраны*/
+				//categories[counter]/* = */;/*здесь нужно докопаться до списка категорий и сделать соответствие*/ 
+			}
+		}
+		return categories;
+	}
+
+	/* Создание нужного количества кнопок */
     private void generateButtons() {
     	/* Для каждой кнопки необходимо указать параметры расположения внутри variantsLayout */
     	LinearLayout.LayoutParams parameters = new LinearLayout.LayoutParams(

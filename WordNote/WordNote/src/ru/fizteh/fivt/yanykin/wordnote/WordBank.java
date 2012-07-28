@@ -114,11 +114,19 @@ class WBDBHelper extends SQLiteOpenHelper{
 	private List<Pair<String, String>> _wordList;
 	private String _pathToFile;
 	final String LOG_TAG = "myLogs";
-	final static String TABLE_NAME = "wordnotetable";
+	final public static String MAIN_TABLE_NAME = "wordnotetable";
+	final public static String CAT_TABLE_NAME = "wordnotecattable";
+	final static int DBVersion = 5; 
+	
+	
+	public WBDBHelper(Context context){
+		super(context, "WBDatabase", null/*Cursor factory*/, DBVersion/*version*/);
+		Log.d(LOG_TAG, "simple WBDBHelper constructor worked");
+	}
 	
 	
 	public WBDBHelper(Context context, List<Pair<String, String>> wordList) {
-		super(context, "WBDatabase", null/*Cursor factory*/, 1/*version*/);
+		super(context, "WBDatabase", null/*Cursor factory*/, DBVersion/*version*/);
 		_wordList = wordList;
 		_context = context;
 		Log.d(LOG_TAG, "WBDBHelper constructor worked");
@@ -129,14 +137,24 @@ class WBDBHelper extends SQLiteOpenHelper{
 		//создается база данных sql запросом
 			//столбцы: id, слово на английском, его перевод на русском, категория
 		try{
-			Log.d(LOG_TAG, "creating database");
-			db.execSQL("create table " + TABLE_NAME + " ("
+			Log.d(LOG_TAG, "creating table: " + MAIN_TABLE_NAME);
+			db.execSQL("create table " + MAIN_TABLE_NAME + " ("
 				+ "_id integer primary key autoincrement," + "eng_word text,"
-				+ "rus_transl text," + "category text" + ");");
+				+ "rus_transl text," + "category_id integer" + ");");
 		} catch(SQLException e){
-			Toast.makeText(_context, "Database error: not created", Toast.LENGTH_LONG).show();
+			Toast.makeText(_context, "Database error: " + MAIN_TABLE_NAME + "not created", Toast.LENGTH_LONG).show();
 			return;
 		}
+		
+		try{
+			Log.d(LOG_TAG, "creating table: " + CAT_TABLE_NAME);
+			db.execSQL("create table " + CAT_TABLE_NAME + " ("
+				+ "_id integer primary key autoincrement," + "name text," + "selected text" + ");");
+		} catch(SQLException e){
+			Toast.makeText(_context, "Database error: " + CAT_TABLE_NAME + "not created", Toast.LENGTH_LONG).show();
+			return;
+		}
+		
 		Log.d(LOG_TAG, "database created");
 		Resources res = _context.getResources();
 		Log.d(LOG_TAG, "got resources");
@@ -144,8 +162,15 @@ class WBDBHelper extends SQLiteOpenHelper{
 		/* Используем файл words.xml */
 		String scannedWordPairs[] = res.getStringArray(R.array.wordlist);// массив строк из файла
 		ContentValues cv = new ContentValues();
+		ContentValues cvCat = new ContentValues();
 		String engWord;
 		String translation;
+		
+		// заполняем категории
+		cvCat.put("name", "no_category");
+		cvCat.put("selected", "y");// выбрана по умолчанию
+		long catRowID = db.insert(CAT_TABLE_NAME, null, cvCat);
+		
 		
 		// Перегоняем слова из файла XML в базу данных
 		for (String wordPair : scannedWordPairs) {
@@ -153,41 +178,62 @@ class WBDBHelper extends SQLiteOpenHelper{
 			if (scannedWords.length >= 2) {
 				//_wordList.add(new Pair<String, String>(scannedWords[0], scannedWords[1]));
 				// здесь заливаем и готовим к записи в бд
+				
+				
+				//заполняем основную таблицу
 				engWord = scannedWords[0];
 				translation = scannedWords[1];
 
 				cv.put("eng_word", engWord);
 				cv.put("rus_transl", translation);
-				cv.put("category", "no_category");
-				long rowID = db.insert(TABLE_NAME, null, cv);
+				
+				/* выясняем запросом, какой id у нужной категории в предыдущей таблице*/
+				int catID = locateCategory(db, "no_category");
+				
+				cv.put("category_id", catID);
+				long rowID = db.insert(MAIN_TABLE_NAME, null, cv);
 				
 				Log.d(LOG_TAG, "word = " + engWord + ", transl = " + translation);
 			}
 			else{
-				Log.e(LOG_TAG, "Error occured: scannedWords.length < 2!");// TODO ошибка
+				Log.e(LOG_TAG, "Error occured: scannedWords.length < 2!");// TODO обработать ошибку
 			}
 		}
 		
 	}
 
+	private int locateCategory(SQLiteDatabase db, String categoryName) {
+		int catID = -1;
+		String specCategoryQuery = "name = \'"+ categoryName +"\'";//
+		String[] columnsToReturn = {"_id"};
+		Cursor c = db.query(CAT_TABLE_NAME, columnsToReturn, specCategoryQuery, null, null, null, null);
+		
+		if(c.moveToFirst()){
+			int idIndex = c.getColumnIndex("_id");
+			catID = c.getInt(idIndex);// номер нужной категории 
+		}
+		else{}//TODO если не найдено или найдено несколько
+		return catID;
+	}
+
 	public void readWordsFromDB(SQLiteDatabase db, String[] categories /*TODO здесь еще и условия на категории*/){
 		// Теперь надо выбрать те записи, для которых установлены категории по умолчанию 
 		
-		final String[] columnsToReturn = new String[2];
-		columnsToReturn[0] = "eng_word";
-		columnsToReturn[1] = "rus_transl";
+		final String[] columnsToReturn = {"eng_word", "rus_transl"};
+
+		//TODO составляется запрос на те категории, которые отмечены
+		//Cursor c = db.query(CAT_TABLE_NAME, columnsToReturn, specCategories, null, null, null, null);
+		int catID = locateCategory(db, "no_category");
+		String specCategoryQuery = "category_id=" + catID;//TODO здесь надо захардкодить категорию по умолчанию 
 		
-		//составляется условный запрос
-		String specCategoryQuery = "category=\'no_category\'";//TODO здесь надо захардкодить категорию по умолчанию 
-		
-		
-		for(int i = 0; i < categories.length; i++){
+		//TODO несколько категорий
+		/*for(int i = 0; i < categories.length; i++){
 			specCategoryQuery.concat(" or category=\'");
 			specCategoryQuery.concat(categories[i]);
 			specCategoryQuery.concat("\'");
-		}
-		
-		Cursor c = db.query(TABLE_NAME, columnsToReturn, specCategoryQuery, null, null, null, null);
+		}*/
+		Log.d("myLogs", specCategoryQuery);
+		Cursor c = db.query(MAIN_TABLE_NAME, columnsToReturn, specCategoryQuery, null, null, null, null);
 		
 		if (c.moveToFirst()) {
 
@@ -207,8 +253,9 @@ class WBDBHelper extends SQLiteOpenHelper{
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (oldVersion < newVersion){
-			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+		if (oldVersion != newVersion){
+			db.execSQL("DROP TABLE IF EXISTS " + MAIN_TABLE_NAME);
+			db.execSQL("DROP TABLE IF EXISTS " + CAT_TABLE_NAME);
 			onCreate(db);
 		}
 		else 
