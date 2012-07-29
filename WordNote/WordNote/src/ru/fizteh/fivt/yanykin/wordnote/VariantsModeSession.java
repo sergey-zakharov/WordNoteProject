@@ -57,7 +57,7 @@ public class VariantsModeSession extends Activity {
         /* Создаём базу слов */
         
         //создаем, в зависимости от того, какие категории были выбраны в настройках 
-        bank = new WordBank(/*Context*/this, selectedCategories);// 
+        bank = new WordBank(/*Context*/this);// 
         /* Создаём кнопки */
         generateButtons();
         /* Заполняем сразу словами */

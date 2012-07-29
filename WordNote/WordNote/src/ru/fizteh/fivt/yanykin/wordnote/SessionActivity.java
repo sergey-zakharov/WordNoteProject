@@ -54,7 +54,7 @@ public class SessionActivity extends Activity {
 			//Читаем выбранные категории из файла настроек
         	//TODO (тут имеет место дублирование кода)
         	
-        	dictionary = new WordBank(getApplicationContext(), categories);
+        	dictionary = new WordBank(getApplicationContext());
 		} catch (Exception e) {
 			//Инициализируем "фабрику" диалоговых окон
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
