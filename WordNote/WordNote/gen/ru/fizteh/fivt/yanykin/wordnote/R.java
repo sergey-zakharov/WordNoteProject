@@ -26,25 +26,39 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int aboutButton=0x7f0a0003;
-        public static final int configurationsButton=0x7f0a0002;
-        public static final int editWordListButton=0x7f0a0001;
-        public static final int exitButton=0x7f0a0004;
-        public static final int menu_settings=0x7f0a000b;
-        public static final int nextWordButton=0x7f0a0006;
-        public static final int originalWordTextView=0x7f0a0009;
-        public static final int originalWordView=0x7f0a0005;
-        public static final int runSessionButton=0x7f0a0000;
-        public static final int showHideButton=0x7f0a0007;
-        public static final int translationWordView=0x7f0a0008;
-        public static final int variantsLayout=0x7f0a000a;
+        public static final int aboutButton=0x7f0a0006;
+        public static final int add_cat_button=0x7f0a0002;
+        public static final int configurationsButton=0x7f0a0005;
+        public static final int dialod_add_cat_edit_text=0x7f0a000e;
+        public static final int dialod_add_word_edit_text_eng=0x7f0a000f;
+        public static final int dialod_add_word_edit_text_rus=0x7f0a0010;
+        public static final int editWordListButton=0x7f0a0004;
+        public static final int edition_cat_list=0x7f0a0001;
+        public static final int edition_main_tv=0x7f0a0000;
+        public static final int exitButton=0x7f0a0007;
+        public static final int list_item_cat_edition=0x7f0a0011;
+        public static final int list_item_cat_edition_first_col=0x7f0a0012;
+        public static final int list_item_cat_edition_second_col=0x7f0a0013;
+        public static final int menu_settings=0x7f0a0014;
+        public static final int nextWordButton=0x7f0a0009;
+        public static final int originalWordTextView=0x7f0a000c;
+        public static final int originalWordView=0x7f0a0008;
+        public static final int runSessionButton=0x7f0a0003;
+        public static final int showHideButton=0x7f0a000a;
+        public static final int translationWordView=0x7f0a000b;
+        public static final int variantsLayout=0x7f0a000d;
     }
     public static final class layout {
-        public static final int activity_edition_mode=0x7f030000;
-        public static final int activity_main_menu=0x7f030001;
-        public static final int activity_preferences=0x7f030002;
-        public static final int activity_session=0x7f030003;
-        public static final int activity_variants_mode_session=0x7f030004;
+        public static final int activity_cat_edition=0x7f030000;
+        public static final int activity_edition_mode=0x7f030001;
+        public static final int activity_main_menu=0x7f030002;
+        public static final int activity_preferences=0x7f030003;
+        public static final int activity_session=0x7f030004;
+        public static final int activity_variants_mode_session=0x7f030005;
+        public static final int dialog_add_category=0x7f030006;
+        public static final int dialog_add_word=0x7f030007;
+        public static final int list_item_cat_edition=0x7f030008;
+        public static final int my_list_item=0x7f030009;
     }
     public static final class menu {
         public static final int activity_main_menu=0x7f090000;
@@ -54,26 +68,35 @@ public final class R {
         public static final int activity_variants_mode_session=0x7f090004;
     }
     public static final class string {
-        public static final int about_application=0x7f070006;
+        public static final int about_application=0x7f07000b;
+        public static final int add_cat=0x7f070001;
         public static final int app_name=0x7f070000;
-        public static final int configuration=0x7f070005;
-        public static final int edit_word_list=0x7f070004;
-        public static final int exit_from_application=0x7f070007;
-        public static final int hello_world=0x7f07000e;
-        public static final int hide_translation=0x7f07000a;
-        public static final int menu_settings=0x7f070003;
-        public static final int next_word=0x7f07000b;
-        public static final int path_to_dictionary=0x7f07000d;
-        public static final int run_session=0x7f070002;
-        public static final int show_translation=0x7f070009;
-        public static final int stub=0x7f07000c;
-        public static final int title_activity_main_menu=0x7f070001;
-        public static final int title_activity_preferences=0x7f070010;
-        public static final int title_activity_session=0x7f070008;
-        public static final int title_activity_settings=0x7f07000f;
-        public static final int title_activity_variants_mode_session=0x7f070013;
-        public static final int word_categories=0x7f070011;
-        public static final int word_selected_categories=0x7f070012;
+        public static final int cancel=0x7f070012;
+        public static final int configuration=0x7f07000a;
+        public static final int dialod_add_cat_edit_text_hint=0x7f070006;
+        public static final int dialog_add_cat_text=0x7f070005;
+        public static final int dialog_add_word_edit_text_hint_eng=0x7f070007;
+        public static final int dialog_add_word_edit_text_hint_rus=0x7f070008;
+        public static final int edit_word_list=0x7f070009;
+        public static final int exit_from_application=0x7f07000c;
+        public static final int hello_world=0x7f070015;
+        public static final int hide_translation=0x7f07000f;
+        public static final int menu_settings=0x7f070004;
+        public static final int next_word=0x7f070010;
+        public static final int ok=0x7f070011;
+        public static final int path_to_dictionary=0x7f070014;
+        public static final int run_session=0x7f070003;
+        public static final int select_cat=0x7f070016;
+        public static final int show_translation=0x7f07000e;
+        public static final int stub=0x7f070013;
+        public static final int title_activity_edition_mode=0x7f070019;
+        public static final int title_activity_main_menu=0x7f070002;
+        public static final int title_activity_preferences=0x7f070018;
+        public static final int title_activity_session=0x7f07000d;
+        public static final int title_activity_settings=0x7f070017;
+        public static final int title_activity_variants_mode_session=0x7f07001c;
+        public static final int word_categories=0x7f07001a;
+        public static final int word_selected_categories=0x7f07001b;
     }
     public static final class style {
         public static final int AppTheme=0x7f080000;

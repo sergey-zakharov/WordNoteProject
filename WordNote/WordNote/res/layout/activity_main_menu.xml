@@ -1,18 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:orientation="vertical"
-    >
-<Button
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
         android:id="@+id/runSessionButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="73dp"
         android:gravity="center_vertical"
-        android:text="@string/run_session"
-        />
-
+        android:text="@string/run_session" />
+
     <Button
         android:id="@+id/editWordListButton"
         android:layout_width="fill_parent"
@@ -20,21 +20,21 @@
         android:gravity="center_vertical"
         android:scrollHorizontally="false"
         android:text="@string/edit_word_list" />
-
+
     <Button
         android:id="@+id/configurationsButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:text="@string/configuration" />
-
+
     <Button
         android:id="@+id/aboutButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:text="@string/about_application" />
-
+
     <Button
         android:id="@+id/exitButton"
         android:layout_width="fill_parent"

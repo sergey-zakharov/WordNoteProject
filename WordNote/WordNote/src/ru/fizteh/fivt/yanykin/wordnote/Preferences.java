@@ -66,8 +66,12 @@ public class Preferences extends PreferenceActivity {
     }
     
    
-    
-    private ArrayList<Pair<String, Boolean> > getCategories() {
+    /**
+     * Вытягивает курсор, создает список, вызывает его заполнение и возвращает его
+     * 
+     * 
+     * */
+	private ArrayList<Pair<String, Boolean>> getCategories() {
     	WBDBHelper dbHelper = new WBDBHelper(Preferences.this);
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		
@@ -93,7 +97,10 @@ public class Preferences extends PreferenceActivity {
 	}
 
 
-
+/**
+ * Заполняет данный список элементами, проходясь данным курсором по данным, вытянутым из таблицы
+ * 
+ * */
 	private void createListElements(ArrayList<Pair<String, Boolean>> list,
 			Cursor c) {
 		if (c.moveToFirst()){

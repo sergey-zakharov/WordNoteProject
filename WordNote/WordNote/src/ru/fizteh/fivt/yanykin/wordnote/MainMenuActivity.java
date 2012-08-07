@@ -49,7 +49,7 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 				startVariantsModeSession(v);
 				break;
 			case R.id.editWordListButton:
-				//TODO startEditionMode(v);
+				startEditionMode(v);
 				break;
 			case R.id.configurationsButton:
 				openPreferencesList(v);
@@ -66,19 +66,26 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 	}
 
 
-    //открывает окно с пролистыванием слов
+    /*//открывает окно с пролистыванием слов
     public void startSession(View v) {
     	//создаём интент (запрос), чтобы запустить новую деятельность
     	Intent intent = new Intent(this, SessionActivity.class);
     	//запускаем деятельность
     	startActivity(intent);
-    }
+    }*/
     
     /* Запускает режим с вариантами ответа */
     public void startVariantsModeSession(View v) {
     	Intent intent = new Intent(this, VariantsModeSession.class);
     	startActivity(intent);
     }
+    
+    /* Запускает режим с вариантами ответа */
+    public void startEditionMode(View v) {
+    	Intent intent = new Intent(this, EditionMode.class);
+    	startActivity(intent);
+    }
+    
     
     /* Открывает окно настроек */
     public void openPreferencesList(View v) {

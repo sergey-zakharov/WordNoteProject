@@ -128,6 +128,10 @@ class WBDBHelper extends SQLiteOpenHelper {
 	final String LOG_TAG = "myLogs";
 	final public static String MAIN_TABLE_NAME = "wordnotetable";
 	final public static String CAT_TABLE_NAME = "wordnotecattable";
+	final public static String ENG_WORD_COLUMN_NAME = "eng_word";
+	final public static String RUS_WORD_COLUMN_NAME = "rus_transl";
+	final public static String CATEGORY_ID_COLUMN_NAME = "category_id";
+	
 	final static int DBVersion = 8;
 
 	public WBDBHelper(Context context) {

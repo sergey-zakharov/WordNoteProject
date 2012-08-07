@@ -22,6 +22,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".EditionMode"
+            android:label="@string/title_activity_edition_mode" >
+        </activity>
+        
+        <activity
             android:name=".SessionActivity"
             android:label="@string/title_activity_session" >
         </activity>
@@ -32,6 +37,10 @@
         <activity
             android:name=".VariantsModeSession"
             android:label="@string/title_activity_variants_mode_session" >
+        </activity>
+        <activity 
+            android:name=".CategoryEdition"
+            android:label="@string/title_activity_edition_mode">
         </activity>
     </application>
 
