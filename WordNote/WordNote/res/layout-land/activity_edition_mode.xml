@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    >
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/edition_main_tv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/select_cat" >
-    </TextView>
-    
-    
+        android:gravity="center_horizontal"
+        android:text="@string/select_cat"
+        android:layout_above="@+id/edition_cat_list" />
 
-</LinearLayout>
+    <ListView
+        android:id="@id/edition_cat_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/add_cat_button"
+         >
+    </ListView>
+
+    <Button
+        android:id="@id/add_cat_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/add_cat" >
+    </Button>
+
+</RelativeLayout>

@@ -151,16 +151,20 @@ public class CategoryEdition extends Activity implements OnClickListener{
 					ContentValues cvCat = new ContentValues();
 					String engWord = dialogEditTextEng.getText().toString();
 					String rusWord = dialogEditTextRus.getText().toString();
+					dialogEditTextEng.setText("");
+					dialogEditTextRus.setText("");
+					
 					//TODO проверка
-					
-					// Заполняем таблицу 1 словами
-					cvCat.put(WBDBHelper.ENG_WORD_COLUMN_NAME, engWord);
-					cvCat.put(WBDBHelper.RUS_WORD_COLUMN_NAME, rusWord);// выбрана по умолчанию
-					cvCat.put(WBDBHelper.CATEGORY_ID_COLUMN_NAME, categoryId);
-					long catRowID = db.insert(WBDBHelper.MAIN_TABLE_NAME, null, cvCat);
-					
-					// обновить список
-					updateWordList(categoryName);
+					if(!engWord.isEmpty() || !rusWord.isEmpty()){// иначе просто закрываем
+						// Заполняем таблицу 1 словами
+						cvCat.put(WBDBHelper.ENG_WORD_COLUMN_NAME, engWord);
+						cvCat.put(WBDBHelper.RUS_WORD_COLUMN_NAME, rusWord);// выбрана по умолчанию
+						cvCat.put(WBDBHelper.CATEGORY_ID_COLUMN_NAME, categoryId);
+						long catRowID = db.insert(WBDBHelper.MAIN_TABLE_NAME, null, cvCat);
+						
+						// обновить список
+						updateWordList(categoryName);
+					}
 					
 				}
 			});

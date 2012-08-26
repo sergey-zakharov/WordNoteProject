@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" 
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<EditText 
+		android:id="@+id/dialod_add_word_edit_text_eng"
+		android:hint="@string/dialog_add_word_edit_text_hint_eng"
+		android:inputType="text" 
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+	<EditText 
+		android:id="@+id/dialod_add_word_edit_text_rus"
+		android:hint="@string/dialog_add_word_edit_text_hint_rus"
+		android:inputType="text" 
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+</LinearLayout>

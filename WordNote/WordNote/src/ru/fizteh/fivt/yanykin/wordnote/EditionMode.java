@@ -108,51 +108,46 @@ public class EditionMode extends Activity implements OnItemClickListener, OnClic
 		    adb.setView(dialogView);
 		    // находим TexView для отображения кол-ва
 		    dialogEditText = (EditText) dialogView.findViewById(R.id.dialod_add_cat_edit_text);
-			adb.setPositiveButton("OK", null);
-			adb.setNegativeButton("Отмена", null);
-		    
-			createDialog = adb.create();
 			
-			createDialog.setOnDismissListener( new OnDismissListener() {
-				
+		    // Устанавливаем кнопки
+		    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
 				@Override
-				public void onDismiss(DialogInterface dialog) {
+				public void onClick(DialogInterface dialog, int which) {
 					// производится запись в одну таблицу
-					
-					
 					Log.d("myLog", "making entry to the database");
 					WBDBHelper dbHelper = new WBDBHelper(EditionMode.this);
 					SQLiteDatabase db = dbHelper.getWritableDatabase();
 					
 					ContentValues cvCat = new ContentValues();
 					String categoryName = dialogEditText.getText().toString();
+					dialogEditText.setText("");
+					//проверка на пустую строку
 					
-					//обработка строки
-					categoryName.toLowerCase();
-					String firstChar = categoryName.substring(0, 1);
-					categoryName = firstChar.toUpperCase() + categoryName.substring(1, categoryName.length());
-					//проверка строки
-					Log.d("myLogs", "New category: " + categoryName);
-					
-					//TODO возможно создание одноименных категорий с разными id
-					cvCat.put("name", categoryName);
-					cvCat.put("selected", "y");// выбрана по умолчанию
-					long catRowID = db.insert(WBDBHelper.CAT_TABLE_NAME, null, cvCat);
-					
-					// обновить список
-					updateCategoriesList();
+					if(!categoryName.isEmpty()){//иначе просто закрывается
+						
+						//обработка строки
+						categoryName.toLowerCase();
+						String firstChar = categoryName.substring(0, 1);
+						categoryName = firstChar.toUpperCase() + categoryName.substring(1, categoryName.length());
+						//проверка строки
+						Log.d("myLogs", "New category: " + categoryName);
+						
+						//TODO возможно создание одноименных категорий с разными id
+						cvCat.put("name", categoryName);
+						cvCat.put("selected", "y");// выбрана по умолчанию
+						long catRowID = db.insert(WBDBHelper.CAT_TABLE_NAME, null, cvCat);
+						
+						// обновить список
+						updateCategoriesList();
+					}
 				}
-			});
-			createDialog.setOnCancelListener(new OnCancelListener() {
 				
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					// ничего не делаем
-				}
 			});
-			
-			
-		    return createDialog;
+			adb.setNegativeButton("Отмена", null);
+		    	
+			createDialog = adb.create();
+			return createDialog;
 		}
 		
 		return super.onCreateDialog(id);

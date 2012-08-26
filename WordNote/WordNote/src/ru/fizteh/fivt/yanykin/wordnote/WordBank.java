@@ -132,7 +132,7 @@ class WBDBHelper extends SQLiteOpenHelper {
 	final public static String RUS_WORD_COLUMN_NAME = "rus_transl";
 	final public static String CATEGORY_ID_COLUMN_NAME = "category_id";
 	
-	final static int DBVersion = 8;
+	final static int DBVersion = 11;
 
 	public WBDBHelper(Context context) {
 		super(context, "WBDatabase", null/* Cursor factory */, DBVersion/* version */);
@@ -190,7 +190,16 @@ class WBDBHelper extends SQLiteOpenHelper {
 		scannedWordPairs = res.getStringArray(R.array.wordlist_food);
 		catName = "Food";
 		fillTableWithExtractedWords(db, scannedWordPairs, catName);
-
+		
+		scannedWordPairs = res.getStringArray(R.array.wordlist_weather);
+		catName = "Weather";
+		fillTableWithExtractedWords(db, scannedWordPairs, catName);
+		//TODO обработка - убрать _
+		
+		scannedWordPairs = res.getStringArray(R.array.wordlist_professions);
+		catName = "Professions";
+		fillTableWithExtractedWords(db, scannedWordPairs, catName);
+		//TODO обработка - убрать _
 	}
 
 	private void fillTableWithExtractedWords(SQLiteDatabase db,
@@ -213,6 +222,8 @@ class WBDBHelper extends SQLiteOpenHelper {
 				// заполняем основную таблицу
 				engWord = scannedWords[0];
 				translation = scannedWords[1];
+				engWord = engWord.replace('_', ' ');
+				translation = translation.replace('_', ' ');
 
 				cv.put("eng_word", engWord);
 				cv.put("rus_transl", translation);

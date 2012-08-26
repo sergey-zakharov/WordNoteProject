@@ -13,6 +13,8 @@ public final class R {
         public static final int entryValues_wordlist_preferences=0x7f050001;
         public static final int wordlist_food=0x7f050002;
         public static final int wordlist_other=0x7f050003;
+        public static final int wordlist_professions=0x7f050004;
+        public static final int wordlist_weather=0x7f050005;
     }
     public static final class attr {
     }
